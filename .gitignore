@@ -1,32 +1,113 @@
-# Prerequisites
-*.d
+#include <iostream>
+#include <cmath>
+using namespace std;
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+class Fluide {
+public:
+    float viscod, vscinetique, massevolum;
 
-# Precompiled Headers
-*.gch
-*.pch
+    Fluide() {
+        viscod = 0;
+        vscinetique = 0;
+        massevolum = 0;
+    }
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+    float visdynamique() {
+        return vscinetique * massevolum;
+    }
 
-# Fortran module files
-*.mod
-*.smod
+    void setvaleurdynamique() {
+        cout << "Entrer la valeur de la viscosite cinetique : ";
+        cin >> vscinetique;
+        cout << "Entrer la masse volumique : ";
+        cin >> massevolum;
+    }
+};
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+class EcoulementFluide {
+public:
+    float pression, massevolum, vitesse;
 
-# Executables
-*.exe
-*.out
-*.app
+    EcoulementFluide() {
+        pression = 0;
+        massevolum = 0;
+        vitesse = 0;
+    }
+
+    float calculerPression() {
+        return 0.5 * massevolum * pow(vitesse, 2);
+    }
+
+    void setvaleurpression() {
+        cout << "Entrer la masse volumique : ";
+        cin >> massevolum;
+        cout << "Entrer la vitesse : ";
+        cin >> vitesse;
+    }
+};
+
+class EcoulementTurbulent {
+public:
+    float deb, rug, visco;
+
+    EcoulementTurbulent() {
+        deb = 0;
+        rug = 0;
+        visco = 0;
+    }
+
+    float vitesseec() {
+        return sqrt((2 * deb) / (3.14 * rug * rug * visco));
+    }
+
+    void setvaluevitesseec() {
+        cout << "Entrer le debit : ";
+        cin >> deb;
+        cout << "Entrer la rugosite : ";
+        cin >> rug;
+        cout << "Entrer la viscosite : ";
+        cin >> visco;
+    }
+};
+
+int main() {
+    int i;
+    do {
+        cout << "Selectionner l'operation a effectuer :" << endl;
+        cout << "1- Calcul de la viscosite dynamique" << endl;
+        cout << "2- Calcul de la pression dans un fluide ecoulement" << endl;
+        cout << "3- Calcul de la vitesse d'ecoulement dans un tuyau" << endl;
+        cout << "0- Quitter" << endl;
+        cout << "Entrer votre choix : ";
+        cin >> i;
+        switch (i) {
+            case 1: {
+                Fluide fluide;
+                fluide.setvaleurdynamique();
+                cout << "Viscosite dynamique : " << fluide.visdynamique() << " Pa.s" << endl;
+                break;
+            }
+            case 2: {
+                EcoulementFluide ecoulementFluide1;
+                ecoulementFluide1.setvaleurpression();
+                cout << "Pression : " << ecoulementFluide1.calculerPression() << " Pa" << endl;
+                break;
+            }
+            case 3: {
+                EcoulementTurbulent ecoulementTurbulentA;
+                ecoulementTurbulentA.setvaluevitesseec();
+                cout << "Vitesse d'ecoulement : " << ecoulementTurbulentA.vitesseec() << " m/s" << endl;
+                break;
+            }
+            case 0:
+                cout << "..." << endl;
+                return 0;
+            default:
+                cout << "Choix invalide..." << endl;
+                cout<<"repeter votre choix"<< endl;
+        }
+    } while (i != 0);
+
+    return 0;
+}
+

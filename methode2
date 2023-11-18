@@ -1,0 +1,83 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class fluide {
+public:
+    float viscod, press, vitesse, vscinetique, massevolum, deb, rug, visco;
+    fluide() {
+        viscod = 0;
+        press = 0;
+        vitesse = 0;
+        vscinetique = 0;
+        massevolum = 0;
+        rug = 0;
+        visco = 0;
+    } 
+    float visdynamique() {
+        return vscinetique * massevolum;
+    }
+    float pression() {
+        return 0.5 * massevolum * pow(vitesse, 2);
+    }
+    float vitesseec() {
+        return sqrt((2 * deb / 3.14 * rug * rug * visco));
+    }
+    void setvaleurdynamique() {
+        cout << "entrer la valeur de la viscosite cinetique :" ;
+        cin >> vscinetique;
+        cout << "entrer la masse volumique :" ;
+        cin >> massevolum;
+    }
+    void setvaleurpession() {
+        cout << "entrer la masse volumique :" ;
+        cin >> massevolum;
+        cout << "enter la vitesse :" ;
+        cin >> vitesse;
+    }
+    void setvaluevitesseec() {
+        cout << "enter le debit :" ;
+        cin >> deb;
+        cout << "enter la rugosite:" ;
+        cin >> rug;
+        cout << "enter la viscoite :" ;
+        cin >> visco;
+    }
+};
+
+int main() {
+    fluide fluideA;
+    int i;
+
+    do {
+        cout << "selectionner l'operation a effectuer : " << endl;
+        cout << "1-calcul de la viscosite dynamique" << endl;
+        cout << "2-calcul de la pression dans un fluide ecoulement" << endl;
+        cout << "3-calcul de la vitesse d'ecoulement dans un tuyau" << endl;
+        cout << "0-Quitter" << endl;
+        cout << "enter votre choix : ";
+        cin >> i;
+
+        switch (i) {
+            case 1:
+                fluideA.setvaleurdynamique();
+                cout << "viscosite dynamique:" << fluideA.visdynamique() << "Pa.s" << endl;
+                break;
+            case 2:
+                fluideA.setvaleurpession();
+                cout << "pression:" << fluideA.pression() << "Pa" << endl;
+                break;
+            case 3:
+                fluideA.setvaluevitesseec();
+                cout << "vitesse d'ecoulement:" << fluideA.vitesseec() << "m/s" << endl;
+                break;
+            case 0:
+                cout << "..." << endl;
+                break;
+            default:
+                cout << "Choix invalide. Veuillez entrer une option valide." << endl;
+        }
+    } while (i != 0);
+
+    return 0;
+}
